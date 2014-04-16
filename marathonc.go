@@ -21,4 +21,22 @@ func main() {
 	for _, task := range tasks.List {
 		fmt.Printf("%s => %s:%d\n", task.AppId, task.Host, task.Ports[0])
 	}
+
+	// Get apps
+	apps, err := marathon.GetApps(*host)
+	if err != nil {
+		fmt.Printf("%s\n", err)
+		return
+	}
+
+	// Print out apps
+	for _, app := range apps.List {
+		fmt.Printf("App: %s\n", app.Id)
+		fmt.Printf("  Instances: %d\n", app.Instances)
+		fmt.Printf("  Version: %s\n", app.Version)
+		fmt.Printf("  Executor: %s\n", app.Executor)
+		fmt.Printf("  Container:\n\tImage: %s\n\tOptions: %v\n", app.Container.Image, app.Container.Options)
+		fmt.Printf("  Cpus: %f\n", app.Cpus)
+		fmt.Printf("  Memory: %f\n", app.Mem)
+	}
 }
