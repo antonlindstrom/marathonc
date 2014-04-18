@@ -24,14 +24,14 @@ type App struct {
 	TaskRateLimit float32           `json:"tasksRateLimit,omitempty"`
 	TasksRunning  int               `json:"tasksRunning,omitempty"`
 	TasksStaged   int               `json:"tasksStaged,omitempty"`
-	Uris          []string          `json:"uris,omitempty"`
+	Uris          [0]string         `json:"uris"`
 	Version       string            `json:"version,omitempty"`
 }
 
 // A marathon app container
 type Container struct {
-	Image   string   `json:"image"`
-	Options []string `json:"options"`
+	Image   string    `json:"image"`
+	Options [0]string `json:"options"`
 }
 
 // Message, result from post
