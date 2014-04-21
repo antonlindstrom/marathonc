@@ -31,6 +31,20 @@ func PostBody(url string, payload []byte) ([]byte, error) {
 	return SendRequest(req)
 }
 
+// Delete request to an endpoint
+func DeleteBody(url string, payload []byte) ([]byte, error) {
+	req, err := http.NewRequest("DELETE", url, bytes.NewReader(payload))
+	if err != nil {
+		return nil, err
+	}
+
+	// Set JSON header
+	req.Header.Add("Content-Type", "application/json")
+
+	// Send request to endpoint
+	return SendRequest(req)
+}
+
 // Send request
 func SendRequest(req *http.Request) ([]byte, error) {
 	client := &http.Client{}

@@ -77,3 +77,22 @@ func NewApp(host string, app *App) (*Msg, error) {
 
 	return &Msg{Message: "OK"}, nil
 }
+
+// Delete an app
+func DestroyApp(host, id string) (*Msg, error) {
+	// Send request
+	body, err := DeleteBody(host+"/v2/apps/"+id, []byte(""))
+	if err != nil {
+		return nil, err
+	}
+
+	// Unmarshal if body exists, body is empty if response
+	// is ok.
+	if string(body) != "" {
+		var msg Msg
+		err = json.Unmarshal(body, &msg)
+		return &msg, err
+	}
+
+	return &Msg{Message: "OK"}, nil
+}
